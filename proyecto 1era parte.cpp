@@ -67,7 +67,8 @@ struct Personaje {
     Habilidad habilidades[5]; // arreglo estatico para hqbilidades
     int numHabilidades;
     NodoItem* inventario;
-    Personaje* siguiente;
+    Personaje* siguiente_global; // puntero para la listapersonajes
+    Personaje* siguiente_equipo; // puntero para la lista del Equipo
 };
 
 // estructura para equipo
@@ -297,7 +298,7 @@ Personaje* crearPersonaje(const char* n, const char* d, TipoPersonaje t, Bando b
     nuevo->posicion = 0;
     nuevo->reveladoComoCorrupto = false;
     nuevo->inventario = nullptr;
-    nuevo->siguiente = nullptr;
+    nuevo->siguiente_global = nullptr;
     nuevo->numHabilidades = 0;
     
     // configurar puntos de vida segun tipo
@@ -377,7 +378,7 @@ void crearPersonajesBase(ListaPersonajes* listaPersonajes) {
 
 void agregarPersonaje(ListaPersonajes* lista, Personaje* p) {
     p->id = lista->contadorId++;
-    p->siguiente = lista->cabeza;
+    p->siguiente_global = lista->cabeza;
     lista->cabeza = p;
 }
 
@@ -385,7 +386,7 @@ Personaje* buscarPorId(ListaPersonajes* lista, int id) {
     Personaje* actual = lista->cabeza;
     while (actual != nullptr) {
         if (actual->id == id) return actual;
-        actual = actual->siguiente;
+        actual = actual->siguiente_global;
     }
     return nullptr;
 }
@@ -394,7 +395,7 @@ Personaje* buscarPorNombre(ListaPersonajes* lista,  string nombre) {
     Personaje* actual = lista->cabeza;
     while (actual != nullptr) {
         if (actual->nombre == nombre) return actual;
-        actual = actual->siguiente;
+        actual = actual->siguiente_global;
     }
     return nullptr;
 }
@@ -404,19 +405,19 @@ void eliminarPersonaje(ListaPersonajes* lista, int id) {
 
     if (lista->cabeza->id == id) {
         Personaje* temp = lista->cabeza;
-        lista->cabeza = lista->cabeza->siguiente;
+        lista->cabeza = lista->cabeza->siguiente_global;
         delete temp;
         return;
     }
 
     Personaje* actual = lista->cabeza;
-    while (actual->siguiente != nullptr && actual->siguiente->id != id) {
-        actual = actual->siguiente;
+    while (actual->siguiente_global != nullptr && actual->siguiente_global->id != id) {
+        actual = actual->siguiente_global;
     }
 
-    if (actual->siguiente != nullptr) {
-        Personaje* temp = actual->siguiente;
-        actual->siguiente = temp->siguiente;
+    if (actual->siguiente_global != nullptr) {
+        Personaje* temp = actual->siguiente_global;
+        actual->siguiente_global = temp->siguiente_global;
         delete temp;
     }
 }
@@ -467,7 +468,7 @@ void mostrarListaPersonajes(ListaPersonajes* lista) {
         mostrarHabilidadesPersonaje(actual);
         
          cout << "  --------------------------------------------------------------" <<  endl;
-        actual = actual->siguiente;
+        actual = actual->siguiente_global;
         contador++;
     }
 
@@ -582,7 +583,7 @@ void agregarPersonajeAEquipo(Juego* juego, Personaje* personaje) {
     
     if (indiceEquipo != -1) {
         // agrega al inicio de la lista del equipo
-        personaje->siguiente = juego->equipos[indiceEquipo].cabeza;
+        personaje->siguiente_equipo = juego->equipos[indiceEquipo].cabeza;
         juego->equipos[indiceEquipo].cabeza = personaje;
         juego->equipos[indiceEquipo].cantidadMiembros++;
     }
@@ -596,7 +597,7 @@ void reorganizarEquipos(Juego* juego, ListaPersonajes* listaPersonajes) {
     Personaje* actual = listaPersonajes->cabeza;
     while (actual != nullptr) {
         agregarPersonajeAEquipo(juego, actual);
-        actual = actual->siguiente;
+        actual = actual->siguiente_equipo;
     }
 }
 
@@ -630,7 +631,7 @@ void mostrarEquipos(Juego* juego) {
                 case LOBERO:  cout << "Lobero"; break;
             }
              cout << " | PV: " << actual->puntosVida << "/" << actual->puntosVidaMax <<  endl;
-            actual = actual->siguiente;
+            actual = actual->siguiente_equipo;
             contador++;
         }
         
@@ -698,7 +699,7 @@ void mostrarPersonajesDisponiblesPorBando(ListaPersonajes* listaPersonajes, Band
              cout <<  endl;
             contador++;
         }
-        actual = actual->siguiente;
+        actual = actual->siguiente_equipo;
     }
 
     if (contador == 1) {
@@ -1270,7 +1271,7 @@ int main() {
     Personaje* actualPersonaje = listaPersonajes.cabeza;
     while (actualPersonaje != nullptr) {
         Personaje* temp = actualPersonaje;
-        actualPersonaje = actualPersonaje->siguiente;
+        actualPersonaje = actualPersonaje->siguiente_global;
         
         // se limpia el inventario del personaje
         NodoItem* actualItem = temp->inventario;
