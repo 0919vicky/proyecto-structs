@@ -67,8 +67,8 @@ struct Personaje {
     Habilidad habilidades[5]; // arreglo estatico para hqbilidades
     int numHabilidades;
     NodoItem* inventario;
-    Personaje* siguiente_global; // puntero para la listapersonajes
-    Personaje* siguiente_equipo; // puntero para la lista del Equipo
+    Personaje* siguiente_global; // Puntero para la ListaPersonajes
+    Personaje* siguiente_equipo; // Puntero para la lista del Equipo
 };
 
 // estructura para equipo
@@ -299,6 +299,7 @@ Personaje* crearPersonaje(const char* n, const char* d, TipoPersonaje t, Bando b
     nuevo->reveladoComoCorrupto = false;
     nuevo->inventario = nullptr;
     nuevo->siguiente_global = nullptr;
+    nuevo->siguiente_equipo = nullptr;
     nuevo->numHabilidades = 0;
     
     // configurar puntos de vida segun tipo
@@ -370,7 +371,7 @@ void crearPersonajesBase(ListaPersonajes* listaPersonajes) {
 
     // policias corruptos
     agregarPersonaje(listaPersonajes, crearPersonaje("Agente Smith",
-        "Siempre en el lugar correcto en el momento correcto... ¿demasiado correcto?",
+        "Siempre en el lugar correcto en el momento correcto... demasiado correcto?",
         POLICIA_CORRUPTO, CORRUPTO, 4));
 }
 
@@ -597,7 +598,7 @@ void reorganizarEquipos(Juego* juego, ListaPersonajes* listaPersonajes) {
     Personaje* actual = listaPersonajes->cabeza;
     while (actual != nullptr) {
         agregarPersonajeAEquipo(juego, actual);
-        actual = actual->siguiente_equipo;
+        actual = actual->siguiente_global;
     }
 }
 
@@ -699,7 +700,7 @@ void mostrarPersonajesDisponiblesPorBando(ListaPersonajes* listaPersonajes, Band
              cout <<  endl;
             contador++;
         }
-        actual = actual->siguiente_equipo;
+        actual = actual->siguiente_global;
     }
 
     if (contador == 1) {
@@ -949,9 +950,9 @@ void menuGestionMochilas(ListaPersonajes* listaPersonajes, ListaItems* listaItem
 void menuGestionPersonajes(ListaPersonajes* listaPersonajes) {
     int opcion;
     do {
-         cout << "\n┌─────────────────────────────────────────────────────────────────────────┐" <<  endl;
-         cout << "│                       GESTIÓN DE PERSONAJES                         │" <<  endl;
-         cout << "└─────────────────────────────────────────────────────────────────────────┘" <<  endl;
+         cout << "\n==============================================================" <<  endl;
+         cout << "                       GESTION DE PERSONAJES                         " <<  endl;
+         cout << "==============================================================" <<  endl;
          cout << "1. Crear Personaje" <<  endl;
          cout << "2. Modificar Personaje" <<  endl;
          cout << "3. Eliminar Personaje" <<  endl;
