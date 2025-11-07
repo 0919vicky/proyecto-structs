@@ -955,7 +955,7 @@ void menuGestionPersonajes(ListaPersonajes* listaPersonajes) {
          cout << "1. Crear Personaje" <<  endl;
          cout << "2. Modificar Personaje" <<  endl;
          cout << "3. Eliminar Personaje" <<  endl;
-         cout << "4. Listar Personajes" <<  endl;
+         cout << "4. Mostrar Personajes" <<  endl;
          cout << "5. Buscar Personaje" <<  endl;
          cout << "6. Volver al Menu Principal" <<  endl;
          cout << "Seleccione una opcion: ";
