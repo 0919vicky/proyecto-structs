@@ -1,0 +1,86 @@
+12
+---
+1
+Ladron
+Bomba de Humo
+Funcion: Movilidad/Evasion
+Uso: 1
+Alcance: 0
+---
+2
+Ladron
+Jamelgo de Distraccion
+Funcion: Movilidad/Evasion
+Uso: 1
+Alcance: 2
+---
+3
+Policia
+Patines Electricos
+Funcion: Movilidad/Evasion
+Uso: 3
+Alcance: 1
+---
+4
+Ladron
+Llave Maestra
+Funcion: Interaccion/Control
+Uso: 3
+Alcance: 0
+---
+5
+Ladron
+Cable de Extraccion
+Funcion: Interaccion/Control
+Uso: 2
+Alcance: 1
+---
+6
+Policia
+Inmovilizador Sonico
+Funcion: Interaccion/Control
+Uso: 1
+Alcance: 1
+---
+7
+Ladron
+Sensor de Calor
+Funcion: Busqueda/Vigilancia
+Uso: 2
+Alcance: 3
+---
+8
+Policia
+Drone de Rastreo
+Funcion: Busqueda/Vigilancia
+Uso: 1
+Alcance: 6
+---
+9
+Policia
+Linterna UV Forense
+Funcion: Busqueda/Vigilancia
+Uso: 3
+Alcance: 0
+---
+10
+Ladron
+Chaqueta Reforzada
+Funcion: Asalto/Defensa
+Uso: 2
+Alcance: 0
+---
+11
+Policia
+Escudo Tactico
+Funcion: Asalto/Defensa
+Uso: 2
+Alcance: 0
+---
+12
+Policia
+Estimulante de Combate
+Funcion: Asalto/Defensa
+Uso: 1
+Alcance: 0
+---
